@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   before_action :authenticate_user! ,only: [:new, :create, :edit, :update, :destroy]
-  before_action :find_movie_and_check_permission, only: [:edit, :update, :destroy]
+  before_action :find_movie_and_check_permission, only: [:edit, :update, :destroy, :join, :quit]
   def index
   @movies = Movie.all
   end
@@ -41,6 +41,33 @@ class MoviesController < ApplicationController
      @movie.destroy
      redirect_to movies_path, alert: "Movie Deleted!"
    end
+
+  def join
+   @movie = Movie.find(params[:id])
+
+    if !current_user.is_member_of?(@movie)
+      current_user.join!(@movie)
+      flash[:notice] = "加入本讨论版成功！"
+    else
+      flash[:warning] = "你已经是本讨论版成员了！"
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
+  def quit
+    @movie = Movie.find(params[:id])
+
+    if current_user.is_member_of?(@movie)
+      current_user.quit!(@movie)
+      flash[:alert] = "已退出本讨论版！"
+    else
+      flash[:warning] = "你不是本讨论版成员，怎么退出 XD"
+    end
+
+    redirect_to movie_path(@movie)
+  end
+
 
  private
 
