@@ -3,20 +3,20 @@
 
     <span class="pull-right">
       <% if current_user && current_user.is_member_of?(@movie) %>
-        <label class="label label-success"> 群组成员 </label>
-        <%= link_to("Quit Movie", quit_movie_path(@movie), method: :post, class: "btn btn-default") %>
+        <label class="label label-success"> 本电影成员 </label>
+        <%= link_to("取消收藏", quit_movie_path(@movie), method: :post, class: "btn btn-default") %>
 
       <% else %>
-        <label class="label label-warning"> 不是群组成员 </label>
-        <%= link_to("Join Movie", join_movie_path(@movie), method: :post, class: "btn btn-default") %>
+        <label class="label label-warning"> 不是本电影成员 </label>
+        <%= link_to("收藏电影", join_movie_path(@movie), method: :post, class: "btn btn-default") %>
 
       <% end %>
     </span>
 
-    <%= link_to("Write a Post", new_movie_post_path(@movie), class: "btn btn-default pull-right")%>
+    <%= link_to("写下我的看法", new_movie_post_path(@movie), class: "btn btn-default pull-right")%>
 
     <% if current_user && current_user == @movie.user %>
-    <%= link_to("Edit", edit_movie_path(@movie), class: "btn btn-primary pull-right")%>
+    <%= link_to("编辑影评", edit_movie_path(@movie), class: "btn btn-primary pull-right")%>
     <% end %>
   </div>
   <h2><%= @movie.title %></h2>
@@ -25,8 +25,8 @@
   <table class="table">
     <thead>
      <tr>
-        <th>评论内容</th>
-        <th>评论人</th>
+        <th>看法</th>
+        <th>发表者</th>
         <th>发表时间</th>
       </tr>
     </thead>

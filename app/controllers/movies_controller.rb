@@ -31,7 +31,7 @@ class MoviesController < ApplicationController
    def update
 
      if @movie.update(movie_params)
-      redirect_to movies_path, notice: 'Update Success!'
+      redirect_to movies_path, notice: '更新成功!'
     else
       render :edit
     end
@@ -40,7 +40,7 @@ class MoviesController < ApplicationController
    def destroy
 
      @movie.destroy
-     redirect_to movies_path, alert: "Movie Deleted!"
+     redirect_to movies_path, alert: "影评已删除!"
    end
 
   def join
@@ -48,9 +48,9 @@ class MoviesController < ApplicationController
 
     if !current_user.is_member_of?(@movie)
       current_user.join!(@movie)
-      flash[:notice] = "加入本讨论版成功！"
+      flash[:notice] = "收藏电影成功！"
     else
-      flash[:warning] = "你已经是本讨论版成员了！"
+      flash[:warning] = "你已经收藏过本电影了！"
     end
 
     redirect_to movie_path(@movie)
@@ -61,9 +61,9 @@ class MoviesController < ApplicationController
 
     if current_user.is_member_of?(@movie)
       current_user.quit!(@movie)
-      flash[:alert] = "已退出本讨论版！"
+      flash[:alert] = "已退出本电影！"
     else
-      flash[:warning] = "你不是本讨论版成员，怎么退出 XD"
+      flash[:warning] = "你不是本电影成员。"
     end
 
     redirect_to movie_path(@movie)
@@ -76,7 +76,7 @@ class MoviesController < ApplicationController
    @movie = Movie.find(params[:id])
 
    if current_user != @movie.user
-     redirect_to root_path, alert: "你没有权限！"
+     redirect_to root_path, alert: "没有权限！"
    end
  end
 

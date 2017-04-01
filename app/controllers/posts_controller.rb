@@ -27,7 +27,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to movie_path(@movie), alert: "Post Deleted!"
+    redirect_to movie_path(@movie), alert: "看法已删除！"
   end
 
   private
