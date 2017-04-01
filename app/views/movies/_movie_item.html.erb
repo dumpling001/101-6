@@ -7,7 +7,7 @@
     <% if current_user && current_user == movie.user %>
       <%= link_to("Edit", edit_movie_path(movie), class: "btn btn-sm btn-default")%>
       <%= link_to("Delete", movie_path(movie),    class: "btn btn-sm btn-default",
-                  method: :delete, data: { confirm: "Are you sure?" } )%>
+                  method: :delete, data: { confirm: "确定要删除这篇影评吗？" } )%>
     <% end %>
   </td>
 

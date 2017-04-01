@@ -1,10 +1,15 @@
 class PostsController < ApplicationController
 
-  before_action :authenticate_user!, :only => [:new, :create]
+  before_action :authenticate_user!, :only => [:new, :create, :edit, :destroy]
 
   def new
     @movie = Movie.find(params[:movie_id])
     @post = Post.new
+  end
+
+  def edit
+    @movie = Movie.find(params[:movie_id])
+    @post = Post.find(params[:movie_id])
   end
 
   def create
@@ -20,6 +25,10 @@ class PostsController < ApplicationController
     end
   end
 
+  def destroy
+    @post.destroy
+    redirect_to movie_path(@movie), alert: "Post Deleted!"
+  end
 
   private
 
