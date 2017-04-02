@@ -4,13 +4,17 @@ class PostsController < ApplicationController
 
   def new
     @movie = Movie.find(params[:movie_id])
-    @post = Post.new
+    if current_user.is_member_of?(@movie) != true
+      redirect_to movie_path(@movie), alert: "你不是本电影成员！请加入后再发表评论"
+    else
+      @post = Post.new
+    end
   end
 
   def edit
     @movie = Movie.find(params[:movie_id])
-    if current_user != @group.user
-      redirect_to root_path, alert: "你不是本电影成员！请加入后再发表评论"
+    if current_user.is_member_of?(@movie) != true
+      #redirect_to movie_path(@movie), alert: "你不是本电影成员！请加入后再发表评论"
     else
       @post = Post.find(params[:movie_id])
     end
@@ -30,8 +34,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    @movie = Movie.find(params[:movie_id])
+    if current_user.is_member_of?(@movie) != true
+      redirect_to movie_path(@movie), alert: "你不是本电影成员！请加入后再发表评论"
+    else
     @post.destroy
-    redirect_to movie_path(@movie), alert: "看法已删除！"
+      redirect_to movie_path(@movie), alert: "看法已删除！"
+    end
   end
 
   private
