@@ -9,7 +9,11 @@ class PostsController < ApplicationController
 
   def edit
     @movie = Movie.find(params[:movie_id])
-    @post = Post.find(params[:movie_id])
+    if current_user != @group.user
+      redirect_to root_path, alert: "你不是本电影成员！请加入后再发表评论"
+    else
+      @post = Post.find(params[:movie_id])
+    end
   end
 
   def create
