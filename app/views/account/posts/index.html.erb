@@ -19,7 +19,7 @@
           <td> <%= post.movie.title %> </td>
           <td> <%= post.updated_at %> </td>
           <td> <%= link_to('Edit', edit_movie_post_path(post.movie, post), class: "btn btn-default btn-xs") %></td>
-          <td> <%= link_to('Delete', movie_post_path(post.movie, post), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-default btn-xs") %></td>
+          <td> <%= link_to('Delete', movie_post_path(post.movie, post), method: :delete, data: { confirm: "确定要删除吗？" }, class: "btn btn-default btn-xs") %></td>
         </tr>
       <% end %>
     </tbody>
